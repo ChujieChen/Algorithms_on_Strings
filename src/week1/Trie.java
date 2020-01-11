@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
+
 public class Trie {
     class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
@@ -29,7 +31,32 @@ public class Trie {
         List<Map<Character, Integer>> trie = new ArrayList<Map<Character, Integer>>();
 
         // write your code here
-        // TODO by LCC on 01/08/2020
+        // TODO by LCC on 01/10/2020
+        // a single node root
+        trie.add(new HashMap<Character, Integer>());
+        for(String pattern: patterns) {
+        	int currentNode = 0;
+        	for(int i = 0; i < pattern.length(); ++i) {
+        		char currentSymbol = pattern.charAt(i);
+        		if(trie.get(currentNode).containsKey(currentSymbol)) {
+        			currentNode = trie.get(currentNode).get(currentSymbol);
+//        			if(currentSymbol == 'A') {
+//        				System.out.println(currentNode);
+//        			}
+        		}
+        		else {
+        			trie.add(new HashMap<Character, Integer>());
+        			int newNode = trie.size() - 1;
+//        			if(newNode == 10) {
+//        				System.out.println(currentNode);
+//            			System.out.println(newNode);
+//            			System.out.println(currentSymbol);
+//        			}
+        			trie.get(currentNode).put(currentSymbol, newNode);
+        			currentNode = newNode;
+        		}
+        	}
+        }
         
 
         return trie;
